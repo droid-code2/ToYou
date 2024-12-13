@@ -252,3 +252,56 @@ h1, h2 {
         right: -15px; /* Adjust circle position */
     }
 }
+
+/* Audio Control Styling */
+.play-song {
+    background-color: #ff9999;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.play-song:hover {
+    background-color: #ff6666;
+}
+
+#seek-bar {
+    width: 80%;
+    height: 5px;
+    margin: 20px auto;
+    display: block;
+    cursor: pointer;
+    background-color: #ddd;
+    appearance: none;
+    border-radius: 5px;
+}
+
+#seek-bar::-webkit-slider-thumb {
+    appearance: none;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background: #ff4081;
+    cursor: pointer;
+}
+
+#seek-bar:hover {
+    background-color: #ccc;
+}
+
+#time-display {
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+    margin-top: 10px;
+}
+
+/* Ensure alignment and responsive adjustments */
+#song-section {
+    text-align: center;
+    padding: 20px;
+}

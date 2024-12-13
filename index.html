@@ -87,8 +87,11 @@
     <!-- Song Section -->
     <div id="song-section" class="section">
         <h2>Wanna Dance?</h2>
-        <button class="play-song" onclick="playSong()">Click to Play a Song 🎶</button>
+        <button class="play-song" onclick="togglePlay()">Play/Pause 🎶</button>
+        <input type="range" id="seek-bar" value="0" style="width: 100%;">
+        <p id="time-display">00:00 / 00:00</p>
     </div>
+
 
     <script src="script.js"></script>
 </body>
