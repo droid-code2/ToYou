@@ -331,17 +331,19 @@ h1, h2 {
 }
 
 #visual-effects {
-    position: absolute;
+    position: fixed;  /* Changed from absolute to fixed to cover the entire screen */
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    display: none;  /* Control visibility with JavaScript */
+    display: none;  /* Initially hidden, controlled by JavaScript */
     background-image: url('images/hearts.png');
+    background-size: cover;  /* Ensure the background covers the full area */
     opacity: 0.5;
-    pointer-events: none;  /* Crucial to ensure it does not block mouse events */
-    z-index: -1;  /* Ensure it does not overlay interactive elements */
+    pointer-events: none;  /* Keep it non-interactive */
+    z-index: -1;  /* Render behind interactive elements */
 }
+
 
 /* Animation for musical effect */
 .music-playing-effect {
@@ -355,3 +357,22 @@ h1, h2 {
 }
 
 
+#heartfelt-message {
+    position: fixed;
+    width: 100%;
+    bottom: 10%;
+    left: 0;
+    z-index: 5;
+    text-align: center;
+    font-size: 1.5em;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#heartfelt-message p {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}

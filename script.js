@@ -1,11 +1,20 @@
 // Create a global audio object
 const audio = new Audio("music/Recording.m4a");
 
+// Global variable to track the playing state of the audio
+let isPlaying = false;
+
+// Hide heartfelt on page load
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('heartfelt-message').style.display = 'none';
+});
+
 // Toggle play/pause for the audio and apply visual effects
 function togglePlay() {
     const personalMessage = document.getElementById('personal-message');
     const visualEffects = document.getElementById('visual-effects');
     const songSection = document.getElementById('song-section');
+    const heartfeltMessage = document.getElementById('heartfelt-message');
 
     if (audio.paused) {
         audio.play().then(() => {
@@ -13,6 +22,10 @@ function togglePlay() {
             setTimeout(() => personalMessage.style.opacity = 1, 10); // Ensure display is set before opacity transition starts
             visualEffects.style.display = 'block';
             songSection.classList.add('music-playing-effect');
+            if (songSection.classList.contains('active')) {
+                heartfeltMessage.style.display = 'block'; // Only show if song section is active
+            }
+            isPlaying = true;
         }).catch(error => console.error("Error attempting to play audio:", error));
     } else {
         audio.pause().then(() => {
@@ -21,7 +34,9 @@ function togglePlay() {
                 personalMessage.style.display = 'none';
                 visualEffects.style.display = 'none';
                 songSection.classList.remove('music-playing-effect');
-            }, 1000); // Transition for fade out, then hide elements
+                heartfeltMessage.style.display = 'none'; // Always hide when paused
+                isPlaying = false;
+            }, 1000);
         }).catch(error => console.error("Error attempting to pause audio:", error));
     }
 }
@@ -58,27 +73,41 @@ function updateTimerDisplay(currentTime, duration) {
     document.getElementById('time-display').textContent = `${currentTimeDisplay} / ${durationDisplay}`;
 }
 
-// Reset seek bar when the song ends
+// Reset time bar when song ends
 audio.addEventListener('ended', function() {
     audio.currentTime = 0;
     document.getElementById('seek-bar').value = 0;
     updateTimerDisplay(0, audio.duration);
     document.getElementById('personal-message').style.opacity = 0;
-    setTimeout(() => document.getElementById('personal-message').style.display = 'none', 1000);
-    document.getElementById('visual-effects').style.display = 'none';
-    document.getElementById('song-section').classList.remove('music-playing-effect');
+    setTimeout(() => {
+        document.getElementById('personal-message').style.display = 'none';
+        document.getElementById('visual-effects').style.display = 'none';
+        document.getElementById('song-section').classList.remove('music-playing-effect');
+        document.getElementById('heartfelt-message').style.display = 'none'; // Also reset message display
+        isPlaying = false;
+    }, 1000);
 });
 
-// Function to show a dedicated message
+// Function to show song message
 function dedicateSong() {
     alert('Hope You Like The Song!');
 }
 
-// Switch between sections (Message, Gallery, Song)
+// Function to switch between sections (Message, Gallery, Song)
 function showSection(sectionId) {
     const sections = document.querySelectorAll('.section');
     sections.forEach(section => {
         section.classList.remove('active');
     });
-    document.getElementById(sectionId).classList.add('active');
+
+    const activeSection = document.getElementById(sectionId);
+    activeSection.classList.add('active');
+
+    // Heartfelt message display
+    const heartfeltMessage = document.getElementById('heartfelt-message');
+    if (sectionId === 'song-section' && isPlaying) {
+        heartfeltMessage.style.display = 'block';
+    } else {
+        heartfeltMessage.style.display = 'none';
+    }
 }
