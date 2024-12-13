@@ -1,5 +1,5 @@
 // Create a global audio object
-const audio = new Audio("music/Recording.m4a");
+const audio = new Audio("music/Recording.mp3");
 
 // Global variable to track the playing state of the audio
 let isPlaying = false;
