@@ -253,55 +253,51 @@ h1, h2 {
     }
 }
 
-/* Audio Control Styling */
-.play-song {
-    background-color: #ff9999;
+/* General button styling to match the rest of your site */
+.button {
+    background-color: #f08080; /* Soft red */
     border: none;
-    padding: 10px 20px;
-    font-size: 1em;
     color: white;
-    border-radius: 10px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
     cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
+    border-radius: 8px; /* Rounded corners */
 }
 
-.play-song:hover {
-    background-color: #ff6666;
-}
-
-#seek-bar {
+/* Specific styling adjustments for slider */
+#song-slider {
+    -webkit-appearance: none;
     width: 80%;
-    height: 5px;
-    margin: 20px auto;
-    display: block;
-    cursor: pointer;
-    background-color: #ddd;
-    appearance: none;
-    border-radius: 5px;
-}
-
-#seek-bar::-webkit-slider-thumb {
-    appearance: none;
     height: 15px;
-    width: 15px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+}
+
+#song-slider:hover {
+    opacity: 1;
+}
+
+#song-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
-    background: #ff4081;
+    background: #f08080; /* Match button color */
     cursor: pointer;
 }
 
-#seek-bar:hover {
-    background-color: #ccc;
-}
-
-#time-display {
-    text-align: center;
-    font-size: 14px;
-    color: #333;
-    margin-top: 10px;
-}
-
-/* Ensure alignment and responsive adjustments */
-#song-section {
-    text-align: center;
-    padding: 20px;
+#song-slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #f08080;
+    cursor: pointer;
 }

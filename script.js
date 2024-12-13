@@ -1,15 +1,32 @@
 // Create a global audio object
 const audio = new Audio("music/Recording.m4a");
 
+// Toggle play/pause for the audio and apply visual effects
 function togglePlay() {
+    const personalMessage = document.getElementById('personal-message');
+    const visualEffects = document.getElementById('visual-effects');
+    const songSection = document.getElementById('song-section');
+
     if (audio.paused) {
-        audio.play();
+        audio.play().then(() => {
+            personalMessage.style.display = 'block';
+            setTimeout(() => personalMessage.style.opacity = 1, 10); // Ensure display is set before opacity transition starts
+            visualEffects.style.display = 'block';
+            songSection.classList.add('music-playing-effect');
+        }).catch(error => console.error("Error attempting to play audio:", error));
     } else {
-        audio.pause();
+        audio.pause().then(() => {
+            personalMessage.style.opacity = 0;
+            setTimeout(() => {
+                personalMessage.style.display = 'none';
+                visualEffects.style.display = 'none';
+                songSection.classList.remove('music-playing-effect');
+            }, 1000); // Transition for fade out, then hide elements
+        }).catch(error => console.error("Error attempting to pause audio:", error));
     }
 }
 
-// Update the seek bar as the song plays
+// Update time bar as song plays
 audio.addEventListener('timeupdate', function() {
     const seekBar = document.getElementById('seek-bar');
     const currentTime = audio.currentTime;
@@ -20,7 +37,7 @@ audio.addEventListener('timeupdate', function() {
     updateTimerDisplay(currentTime, duration);
 });
 
-// Allow user to seek within the song
+// Time adjust song
 document.getElementById('seek-bar').addEventListener('input', function() {
     const duration = audio.duration;
     if (!isNaN(duration)) {
@@ -28,6 +45,7 @@ document.getElementById('seek-bar').addEventListener('input', function() {
     }
 });
 
+// Update time and duration display
 function updateTimerDisplay(currentTime, duration) {
     const formatTime = time => {
         const minutes = Math.floor(time / 60);
@@ -45,10 +63,16 @@ audio.addEventListener('ended', function() {
     audio.currentTime = 0;
     document.getElementById('seek-bar').value = 0;
     updateTimerDisplay(0, audio.duration);
+    document.getElementById('personal-message').style.opacity = 0;
+    setTimeout(() => document.getElementById('personal-message').style.display = 'none', 1000);
+    document.getElementById('visual-effects').style.display = 'none';
+    document.getElementById('song-section').classList.remove('music-playing-effect');
 });
 
-
-
+// Function to show a dedicated message
+function dedicateSong() {
+    alert('Hope You Like The Song!');
+}
 
 // Switch between sections (Message, Gallery, Song)
 function showSection(sectionId) {
